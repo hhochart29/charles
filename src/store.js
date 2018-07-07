@@ -29,9 +29,9 @@ export default new Vuex.Store({
     'REMOVE_ALL_TODOS' (state) {
       state.todos = []
     },
-    'COMPLETE_TODO' (state, index) {
-      console.log(index)
-      state.todos[index].completed = !state.todos[index].completed
+    'COMPLETE_TODO' (state, i) {
+      console.log(i)
+      state.todos[i].completed = !state.todos[i].completed
     }
   },
   actions: {
@@ -41,8 +41,8 @@ export default new Vuex.Store({
     removeAllTodos ({commit}) {
       commit('REMOVE_ALL_TODOS')
     },
-    completeTodo ({commit}, index) {
-      commit('COMPLETE_TODO', index)
+    completeTodo ({commit}, i) {
+      commit('COMPLETE_TODO', i)
     }
   }
 })

@@ -30,6 +30,11 @@
           <span class="description"><i>Completed tasks</i></span>
         </div>
       </div>
+      <div class="step">
+        <div class="content">
+          <button class="ui google plus button" @click.prevent="removeAllTodos"> <i class="trash icon"></i> Delete All </button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -46,19 +51,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'todosCount',
-      'todosRemainingCount',
-      'todosCompletedCount'
-    ])
+    ...mapGetters(['todosCount', 'todosRemainingCount', 'todosCompletedCount'])
   },
   methods: {
     ...mapActions({
-      addTodoToStore: 'addTodo'
+      addTodoToStore: 'addTodo',
+      removeAllTodos: 'removeAllTodos'
     }),
     addTodo () {
-      this.addTodoToStore(this.newtodo)
-      this.newtodo = ''
+      if (this.newtodo !== '') {
+        this.addTodoToStore(this.newtodo)
+        this.newtodo = ''
+      }
     }
   }
 }
