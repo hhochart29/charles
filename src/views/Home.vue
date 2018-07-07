@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div class="ui menu">
+      <a href="#" class="item header">Charles</a>
+      <a href="#" class="item">Game</a>
+      <a href="#" class="item active">Store example</a>
+      <a href="#" class="item">Animation</a>
+    </div>
+    <div class="ui container two column grid">
+      <TodoList class="column" />
+      <TodoCounter class="column" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import TodoList from '@/components/TodoList'
+import TodoCounter from '@/components/TodoCounter'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    TodoList,
+    TodoCounter
   }
 }
 </script>
