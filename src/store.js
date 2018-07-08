@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: true,
   state: {
-    todos: []
+    todos: [],
+    todosBackup: [] // used for backing up before filter
   },
   getters: {
     todos: (state) => state.todos,
@@ -30,8 +31,14 @@ export default new Vuex.Store({
       state.todos = []
     },
     'COMPLETE_TODO' (state, i) {
-      console.log(i)
       state.todos[i].completed = !state.todos[i].completed
+    },
+    'SHOW_REMAINING' (state, data) {
+      state.todosBackup = state.todos
+      state.todos = data
+    },
+    'SHOW_ALL' (state) {
+      state.todos = state.todosBackup
     }
   },
   actions: {
@@ -43,6 +50,13 @@ export default new Vuex.Store({
     },
     completeTodo ({commit}, i) {
       commit('COMPLETE_TODO', i)
+    },
+    showRemaining ({commit, getters}) {
+      let data = getters.todosRemaining
+      commit('SHOW_REMAINING', data)
+    },
+    showAll ({commit}) {
+      commit('SHOW_ALL')
     }
   }
 })
