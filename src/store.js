@@ -29,6 +29,7 @@ export default new Vuex.Store({
     },
     'REMOVE_ALL_TODOS' (state) {
       state.todos = []
+      state.todosBackup = [] // don't forget to clear the backup
     },
     'COMPLETE_TODO' (state, i) {
       state.todos[i].completed = !state.todos[i].completed
