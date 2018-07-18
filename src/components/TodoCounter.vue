@@ -78,7 +78,7 @@ export default {
         this.addTodoToStore(this.newtodo)
         this.newtodo = ''
       }
-    },
+    }
   }
 }
 </script>

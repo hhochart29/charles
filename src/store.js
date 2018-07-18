@@ -7,7 +7,8 @@ export default new Vuex.Store({
   strict: true,
   state: {
     todos: [],
-    todosBackup: [] // used for backing up before filter
+    todosBackup: [], // used for backing up before filter
+    filtered: false
   },
   getters: {
     todos: (state) => state.todos,
@@ -35,10 +36,16 @@ export default new Vuex.Store({
       state.todos[i].completed = !state.todos[i].completed
     },
     'SHOW_REMAINING' (state, data) {
-      state.todosBackup = state.todos
+      if (!state.filtered) { // if not filtered yet, save a backup
+        state.todosBackup = state.todos
+      }
+      state.filtered = true // set the filter as active
       state.todos = data
     },
     'SHOW_ALL' (state) {
+      if (!state.filtered) {
+        state.filtered = true
+      }
       state.todos = state.todosBackup
     }
   },
