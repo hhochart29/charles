@@ -58,13 +58,18 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'TodoCounter',
-  data () {
+  data() {
     return {
       newtodo: ''
     }
   },
   computed: {
-    ...mapGetters(['todosCount', 'todosRemaining', 'todosRemainingCount', 'todosCompletedCount'])
+    ...mapGetters([
+      'todosCount',
+      'todosRemaining',
+      'todosRemainingCount',
+      'todosCompletedCount'
+    ])
   },
   methods: {
     ...mapActions({
