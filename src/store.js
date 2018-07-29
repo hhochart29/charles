@@ -12,7 +12,7 @@ export default new Vuex.Store({
   },
   getters: {
     todos: (state) => state.todos,
-    todosCount: (state, getters) => getters.todos.length,
+    todosCount: (state, getters) => state.todosBackup.length !== 0 ? state.todosBackup.length : getters.todos.length,
     todosRemaining: (state, getters) => getters.todos.filter(todo => todo.completed !== true),
     /*
     * To access other getters, use parameter 'getters'
@@ -43,28 +43,43 @@ export default new Vuex.Store({
       state.todos = data
     },
     'SHOW_ALL' (state) {
-      if (!state.filtered) {
-        state.filtered = true
+      state.filtered = false
+      if (state.todosBackup.length !== 0) {
+        state.todos = state.todosBackup
       }
-      state.todos = state.todosBackup
+      return state.todos
+    },
+    'MARK_ALL_COMPLETED' (state) {
+      state.todos.forEach(todo => {
+        todo.completed = true
+      })
+    },
+    'MARK_ALL_UNCOMPLETED' (state) {
+      state.todos.forEach(todo => {
+        todo.completed = false
+      })
     }
   },
   actions: {
-    addTodo ({commit}, name) {
+    addTodo ({ commit }, name) {
       commit('ADD_TODO', name)
     },
-    removeAllTodos ({commit}) {
+    removeAllTodos ({ commit }) {
       commit('REMOVE_ALL_TODOS')
     },
-    completeTodo ({commit}, i) {
+    completeTodo ({ commit }, i) {
       commit('COMPLETE_TODO', i)
     },
-    showRemaining ({commit, getters}) {
+    showRemaining ({ commit, getters }) {
       let data = getters.todosRemaining
       commit('SHOW_REMAINING', data)
     },
-    showAll ({commit}) {
+    showAll ({ commit }) {
       commit('SHOW_ALL')
+    },
+    markAll({ commit }, status) {
+      /* status = true means we should mark all task as completed */
+      status ? commit('MARK_ALL_COMPLETED') : commit('MARK_ALL_UNCOMPLETED')
     }
   }
 })
