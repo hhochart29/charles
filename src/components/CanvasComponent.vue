@@ -7,13 +7,18 @@ export default {
   name: 'CanvasComponent',
   methods: {
     resizeCanvas () {
+      /* Used to store the width or height of the canvas */
+      let dimension
+      /* Reset the size */
+      this.$refs.canvas.style.height = 'auto'
       this.$refs.canvas.style.width = '100%'
-      if ((document.documentElement.clientHeight - 20) < this.$refs.canvas.width) {
-        this.$refs.canvas.width = document.documentElement.clientHeight - 200
-        console.log(`canvas resized to : ${this.$refs.canvas.width}`)
+      if (this.$refs.canvas.clientWidth > (window.innerHeight - 150)) {
+        dimension = window.innerHeight - 150
+      } else {
+        dimension = this.$refs.canvas.clientWidth
       }
-      this.$refs.canvas.height = this.$refs.canvas.width
-      console.log(this.$refs.canvas.clientWidth, this.$refs.canvas.clientHeight)
+      this.$refs.canvas.style.height = `${dimension}px`
+      this.$refs.canvas.style.width = `${dimension}px`
     }
   },
   mounted () {
@@ -30,7 +35,6 @@ export default {
 <style scoped lang="scss">
   canvas {
     background-color: black;
-    height: auto;
     width: 100%;
   }
 </style>
