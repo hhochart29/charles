@@ -2,7 +2,9 @@
   <transition mode="out-in" name="fade">
     <transition-group class="ui relaxed divided list" tag="div" @enter="todoEnter" @leave="todoLeave" name="todo" v-if="todosCount">
       <div class="item" v-for="(todo, i) in todos" :key="i" @click="completeTodo(i)" :class="{completed: todo.completed}">
-        <i class="large middle aligned icon" :class="[todo.completed ? 'paper plane outline' : 'paper plane']"></i>
+        <transition name="fade" mode="out-in">
+          <i class="large middle aligned icon" :class="[todo.completed ? 'paper plane outline' : 'paper plane']"></i>
+        </transition>
         <div class="content">
           <a class="header">{{ todo.name }}</a>
           <div class="description">Updated 10 mins ago</div>
@@ -28,12 +30,13 @@ export default {
   },
   methods: {
     ...mapActions(['completeTodo']),
-    todoEnter(el, done) {
-      TweenLite.from(el, 1, { y: -10, autoAlpha: 0 })
+    todoEnter (el, done) {
+      // es-lint-disable-next-line
+      TweenLite.from(el, 1, {y: -10, autoAlpha: 0})
       done()
     },
-    todoLeave(el, done) {
-      TweenLite.to(el, 1, { y: -10, autoAlpha: 0 })
+    todoLeave (el, done) {
+      TweenLite.to(el, 1, {y: -10, autoAlpha: 0})
       setTimeout(() => {
         done()
       }, 1000)
@@ -43,11 +46,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.item.completed {
-  text-decoration: line-through;
-  .header,
-  .description {
-    opacity: 0.5;
+  .item {
+    .header {
+      position: relative;
+      transition: 1s opacity ease-in-out;
+      &::before {
+        content: '';
+        opacity: .4;
+        height: 10px;
+        background-color: red;
+        position: absolute;
+        left: -1%;
+        top: 100%;
+        width: 100%;
+        transform: rotateZ(-5deg) scaleX(0);
+        transition: all 1s ease-in-out;
+      }
+    }
+    &.completed {
+      .header, .description {
+        opacity: 0.5;
+      }
+      .header {
+        &::before {
+          transform: rotateZ(-5deg) scaleX(1);
+        }
+      }
+    }
   }
-}
 </style>

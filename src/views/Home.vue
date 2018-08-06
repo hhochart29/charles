@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>There is not much to do on this homepage for the moment</h1>
+    <h1>Some canvas showcase</h1>
+    <CanvasComponent />
   </div>
 </template>
 
 <script>
+import CanvasComponent from '../components/CanvasComponent'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { CanvasComponent }
 }
 </script>
-
-<style>
-
-</style>
