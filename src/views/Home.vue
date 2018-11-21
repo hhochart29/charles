@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>Some canvas showcase</h1>
-    <CanvasComponent />
+    <keep-alive>
+      <CanvasComponent />
+    </keep-alive>
   </div>
 </template>
 

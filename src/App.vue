@@ -16,10 +16,12 @@ export default {
   components: { Menu },
   methods: {
     routerEnter(el, done) {
+      // eslint-disable-next-line
       TweenLite.from(el, 0.5, { autoAlpha: 0, ease: Circ.easeInOut })
       done()
     },
     routerLeave(el, done) {
+      // eslint-disable-next-line
       TweenLite.to(el, 0.5, { autoAlpha: 0, ease: Circ.easeInOut })
       setTimeout(() => {
         done()

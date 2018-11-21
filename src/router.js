@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import TodoListStore from './views/TodoListStore.vue'
+// This is basically how you make an async component loading
+const Home = () => import('./views/Home.vue')
+const TodoListStore = () => import('./views/TodoListStore.vue')
+const Page404 = () => import('./views/Page404.vue')
 
 Vue.use(Router)
 
@@ -17,6 +19,10 @@ export default new Router({
       path: '/todoliststore',
       name: 'TodoListStore',
       component: TodoListStore
+    }, {
+      path: '*',
+      name: 'Page404',
+      component: Page404
     }
   ]
 })

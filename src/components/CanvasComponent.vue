@@ -1,5 +1,7 @@
 <template>
-  <canvas ref="canvas"></canvas>
+  <div>
+    <canvas ref="canvas"></canvas>
+  </div>
 </template>
 
 <script>
@@ -15,14 +17,14 @@ export default {
       particleNumber: 200,
       wMin: 5,
       wMax: 100,
-      nbRetry: 500
+      nbRetry: 2000
     }
   },
   computed: {
     ...mapGetters(['particles'])
   },
   methods: {
-    ...mapActions(['addParticle']),
+    ...mapActions(['addParticle', 'deleteParticles']),
     getRandomProperties () {
       let w = Math.floor(Math.random() * (this.wMax - this.wMin + 1) + this.wMin)
       let tmpX = Math.ceil(Math.random() * this.cDimension)
@@ -64,7 +66,7 @@ export default {
       let particle = new Particle(this.ctx, id, x, y, w)
       let nbCollision = 0
       while (this.isCollision(particle) && nbCollision < this.nbRetry) {
-        /* if it's too big, juste lower the size, else just move it */
+        /* if it collides, regenerate the particle {x,y,w} */
         let {x, y, w} = this.getRandomProperties()
         particle.x = x
         particle.y = y
@@ -78,29 +80,33 @@ export default {
       for (let i = 0; i < this.particleNumber; i++) {
         this.createParticle(i)
       }
-      this.particles.forEach(p1 => {
-        p1.draw()
+      this.particles.forEach((p1, index) => {
+        setTimeout(() => {
+          p1.draw()
+        }, 100 * index)
       })
     }
   },
   mounted () {
     this.resizeCanvas()
-    window.addEventListener('resize', this.resizeCanvas)
+    // window.addEventListener('resize', this.resizeCanvas)
     this.ctx = this.$refs.canvas.getContext('2d')
     this.cDimension = this.$refs.canvas.clientWidth
     this.createParticles()
   },
   destroyed () {
     // Don't forget to remove eventListener
-    window.removeEventListener('scroll', this.resizeCanvas)
+    // window.removeEventListener('scroll', this.resizeCanvas)
+    // clear the store
+    this.deleteParticles()
   }
 }
 </script>
 
 <style scoped lang="scss">
-  canvas {
-    background-color: black;
-    display: block;
-    margin: auto;
-  }
+canvas {
+  background-color: black;
+  display: block;
+  margin: auto;
+}
 </style>

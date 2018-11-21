@@ -6,13 +6,19 @@ export default {
     particles: (state) => state.particles
   },
   mutations: {
-    'ADD_PARTICLE' (state, particle) {
+    ADD_PARTICLE(state, particle) {
       state.particles.push(particle)
+    },
+    DELETE_PARTICLES(state) {
+      state.particles = []
     }
   },
   actions: {
-    addParticle ({ commit }, particle) {
+    addParticle({ commit }, particle) {
       commit('ADD_PARTICLE', particle)
+    },
+    deleteParticles({ commit }) {
+      commit('DELETE_PARTICLES')
     }
   }
 }

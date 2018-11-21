@@ -16,39 +16,39 @@ export default {
     todosCompletedCount: (state, getters) => getters.todosCompleted.length
   },
   mutations: {
-    'ADD_TODO' (state, name) {
+    ADD_TODO (state, name) {
       state.todos.push({
         name,
         completed: false
       })
     },
-    'REMOVE_ALL_TODOS' (state) {
+    REMOVE_ALL_TODOS (state) {
       state.todos = []
       state.todosBackup = [] // don't forget to clear the backup
     },
-    'COMPLETE_TODO' (state, i) {
+    COMPLETE_TODO (state, i) {
       state.todos[i].completed = !state.todos[i].completed
     },
-    'SHOW_REMAINING' (state, data) {
+    SHOW_REMAINING (state, data) {
       if (!state.filtered) { // if not filtered yet, save a backup
         state.todosBackup = state.todos
       }
       state.filtered = true // set the filter as active
       state.todos = data
     },
-    'SHOW_ALL' (state) {
+    SHOW_ALL (state) {
       state.filtered = false
       if (state.todosBackup.length !== 0) {
         state.todos = state.todosBackup
       }
       return state.todos
     },
-    'MARK_ALL_COMPLETED' (state) {
+    MARK_ALL_COMPLETED (state) {
       state.todos.forEach(todo => {
         todo.completed = true
       })
     },
-    'MARK_ALL_UNCOMPLETED' (state) {
+    MARK_ALL_UNCOMPLETED (state) {
       state.todos.forEach(todo => {
         todo.completed = false
       })

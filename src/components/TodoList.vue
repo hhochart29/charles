@@ -46,32 +46,33 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .item {
-    .header {
-      position: relative;
-      transition: 1s opacity ease-in-out;
-      &::before {
-        content: '';
-        opacity: .4;
-        height: 10px;
-        background-color: red;
-        position: absolute;
-        left: -1%;
-        top: 100%;
-        width: 100%;
-        transform: rotateZ(-5deg) scaleX(0);
-        transition: all 1s ease-in-out;
-      }
+.item {
+  .header {
+    position: relative;
+    transition: 1s opacity ease-in-out;
+    &::before {
+      content: '';
+      opacity: 0.4;
+      height: 10px;
+      background-color: red;
+      position: absolute;
+      left: -1%;
+      top: 100%;
+      width: 100%;
+      transform: rotateZ(-5deg) scaleX(0);
+      transition: all 1s ease-in-out;
     }
-    &.completed {
-      .header, .description {
-        opacity: 0.5;
-      }
-      .header {
-        &::before {
-          transform: rotateZ(-5deg) scaleX(1);
-        }
+  }
+  &.completed {
+    .header,
+    .description {
+      opacity: 0.5;
+    }
+    .header {
+      &::before {
+        transform: rotateZ(-5deg) scaleX(1);
       }
     }
   }
+}
 </style>
